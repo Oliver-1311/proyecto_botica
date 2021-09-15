@@ -6,7 +6,7 @@
 package ventanas;
 
 import Panels_admin.*;
-import controler.Controlador;
+import Clases.Controlador;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;

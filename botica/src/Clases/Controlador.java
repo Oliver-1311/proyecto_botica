@@ -1,4 +1,4 @@
-package controler;
+package Clases;
 /**** @author Msc. Ing. Miguel Angel Silva Zapata*/
 import java.awt.Image;
 import javax.swing.*;import java.sql.*;

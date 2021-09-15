@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ventanas;
+package all_frames;
 
-import Panels_admin.p_home;
-import Clases.Controlador;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -30,11 +28,10 @@ import javax.swing.UIManager;
  * @author oliver
  */
 public class login extends javax.swing.JFrame {
-    private p_home ph;
-    Controlador cntrl= new Controlador();
+
    int x,y;   private ActionListener la;
    private Timer t;
-
+ 
     ResultSet rs;Statement  st;
     public login() {
         initComponents();inicio();icono();
@@ -55,24 +52,6 @@ public class login extends javax.swing.JFrame {
         lbl.setIcon(icono);
         this.repaint();
     }
-        public void iniciarSesion(){
-             if(txtusuario.getText().trim().length()==0 ){
-            JOptionPane.showMessageDialog(null,"Ingrese su Usuario ","Advertencia del sistema ",JOptionPane.WARNING_MESSAGE);
-        }else{
-            if(txtpas.getText().trim().length()==0){
-                JOptionPane.showMessageDialog(null,"Ingrese su Contraseña ","Advertencia del sistema ",JOptionPane.WARNING_MESSAGE);
-            }else{
-               cntrl.Verificarconsulta("select *from usuario \n" +
-                "where (nom_usu='"+txtusuario.getText().trim()+"' or coreo='"+txtusuario.getText().trim()+"') and contra=md5('"+txtpas.getText().trim()+"')");
-                dispose();
-                    main_admin main=new main_admin();
-                    main.setVisible(true);
-                    
-                    main.jLabel1.setText(""+cntrl.DevolverRegistroDto("select * from usuario\n" +
-"                   where (nom_usu='"+txtusuario.getText().trim()+"' or coreo='"+txtusuario.getText().trim()+"')", 2));        
-            }
-        }
-        }
     
     class FondoPanel extends JPanel{
     private Image imagen;
@@ -224,14 +203,11 @@ public class login extends javax.swing.JFrame {
         jLabel2.setText("CONTRASEÑA ");
         jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, -1, 52));
 
-        txtusuario.setBackground(new java.awt.Color(255, 255, 255));
         txtusuario.setFont(new java.awt.Font("Geneva", 0, 16)); // NOI18N
         txtusuario.setForeground(new java.awt.Color(102, 102, 102));
         txtusuario.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtusuario.setBorder(null);
-        txtusuario.setCaretColor(new java.awt.Color(0, 0, 0));
         txtusuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        txtusuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtusuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtusuarioMouseClicked(evt);
@@ -249,20 +225,13 @@ public class login extends javax.swing.JFrame {
         });
         jPanel6.add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 190, 30));
 
-        txtpas.setBackground(new java.awt.Color(255, 255, 255));
         txtpas.setFont(new java.awt.Font("Geneva", 0, 16)); // NOI18N
         txtpas.setForeground(new java.awt.Color(102, 102, 102));
         txtpas.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtpas.setBorder(null);
-        txtpas.setCaretColor(new java.awt.Color(0, 0, 0));
         txtpas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtpasMouseClicked(evt);
-            }
-        });
-        txtpas.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtpasKeyPressed(evt);
             }
         });
         jPanel6.add(txtpas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 200, 30));
@@ -293,9 +262,6 @@ public class login extends javax.swing.JFrame {
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel4MouseEntered(evt);
             }
         });
         jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 260, -1));
@@ -333,11 +299,6 @@ public class login extends javax.swing.JFrame {
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 btnEntrarMouseReleased(evt);
-            }
-        });
-        btnEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnEntrarKeyPressed(evt);
             }
         });
         jPanel6.add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 150, 30));
@@ -518,9 +479,20 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnEntrar.setSize(150, 30);
         btnEntrar.setFont(new Font("Geneva",Font.PLAIN,16));
-        iniciarSesion();
-       
-       
+        
+         if(txtusuario.getText().trim().length()==0 ){
+            JOptionPane.showMessageDialog(null,"Ingrese su Usuario ","Advertencia del sistema ",JOptionPane.WARNING_MESSAGE);
+        }else{
+            if(txtpas.getText().trim().length()==0){
+                JOptionPane.showMessageDialog(null,"Ingrese su Contraseña ","Advertencia del sistema ",JOptionPane.WARNING_MESSAGE);
+            }else{
+                if(txtpas.getText().trim().length()==0 || txtusuario.getText().trim().length()==0){
+                    JOptionPane.showMessageDialog(null,"Ingrese su Usuario y contraseña ","Advertencia del sistema ",JOptionPane.WARNING_MESSAGE);
+                }else{
+                    IniciarSecion(txtusuario.getText(), txtpas.getText());
+                }
+            }
+        }
     }//GEN-LAST:event_btnEntrarMouseReleased
 
     private void btnEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseEntered
@@ -541,24 +513,23 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEntrarMousePressed
 
     private void btnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseClicked
-         
+        // TODO add your handling code here:
         
     }//GEN-LAST:event_btnEntrarMouseClicked
 
-    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
-        //recuperarcontraseña cp=new recuperarcontraseña(this, rootPaneCheckingEnabled);cp.setVisible(true);
-    }//GEN-LAST:event_jLabel4MouseEntered
-
-    private void txtpasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasKeyPressed
-        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER){
-            iniciarSesion();
-       }
-    }//GEN-LAST:event_txtpasKeyPressed
-
-    private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEntrarKeyPressed
-
+    public String IniciarSecion(String usuario,String pasword){
+        String msg="";
+        String perfil="";
+        String nomb="";
+        int veces=3;
+        String sql="select *from cuentas where nick='"+usuario+"' and pasword='"+pasword+"'";
+        try {
+            
+         
+        } catch (Exception e) {
+        }
+        return msg;
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -576,6 +547,12 @@ public class login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

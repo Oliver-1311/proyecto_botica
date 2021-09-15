@@ -1,4 +1,4 @@
-package controler;import java.sql.*;
+package Clases;import java.sql.*;
 public class Conexion {
 //***************ATRIBUTOS**************
  public PreparedStatement prest=null; public  CallableStatement cllst=null;
