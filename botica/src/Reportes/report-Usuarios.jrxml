@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-Usuarios" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5554562f-eefe-4bed-9cda-f7fa52c4a18d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT  nom_user as 'Usuario', fech_contrato as 'Fecha de contrato', tipo as 'Tipo de empleado' from empleado u inner join tipempleado t on u.idtipempleado= t.idtipempleado;]]>
+	</queryString>
+	<field name="Usuario" class="java.lang.String"/>
+	<field name="Fecha de contrato" class="java.sql.Date"/>
+	<field name="Tipo de empleado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="111" y="29" width="373" height="34" forecolor="#FF0000" uuid="598a256a-cf04-4cf6-bae9-e8a8a8d6e518"/>
+				<textElement>
+					<font size="24" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE LOS USUARIOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="b11ae94e-5fff-4e04-acf2-5a4291f6b223"/>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="0" width="100" height="20" uuid="f8cedd79-20fe-448c-bbcb-2b2754f6e349"/>
+				<text><![CDATA[Fecha de contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="0" width="100" height="20" uuid="a7ba133a-544a-4ef5-8473-1995867dec91"/>
+				<text><![CDATA[Tipo de empleado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="e52305c9-f2b3-4381-ac96-8106cdc99ffd"/>
+				<textFieldExpression><![CDATA[$F{Usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="5" width="100" height="20" uuid="8d935004-598e-4a5e-99a5-fa80ce7719db"/>
+				<textFieldExpression><![CDATA[$F{Fecha de contrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="5" width="100" height="20" uuid="8a21b346-b9b4-4dde-bf7f-a663b7108ec5"/>
+				<textFieldExpression><![CDATA[$F{Tipo de empleado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

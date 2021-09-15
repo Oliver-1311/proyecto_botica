@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-Prove" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ff59a97b-aeef-4c0a-95dc-a3b09c2f5885">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT nom_prove as 'PROVEEDORES', numIden as 'RUC' from proveedor p inner join identificaciong r on r.identificacion= p.identificacion;]]>
+	</queryString>
+	<field name="PROVEEDORES" class="java.lang.String"/>
+	<field name="RUC" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="116" y="18" width="363" height="48" forecolor="#FF3333" uuid="53f04418-e7fa-46db-96ee-dee78a9367da"/>
+				<textElement>
+					<font size="24" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE PROVEEDORES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="7870f21c-99c1-4505-ae62-248e8a51a943"/>
+				<text><![CDATA[PROVEEDORES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="2" width="100" height="20" uuid="74cdbcf5-f2ef-47f7-8282-abdc9feeb8be"/>
+				<text><![CDATA[RUC]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="5d78354a-1611-497d-8678-98b8ede15296"/>
+				<textFieldExpression><![CDATA[$F{PROVEEDORES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="0" width="100" height="20" uuid="76d4e70c-7a55-43ab-8c4d-15945ee7c4ae"/>
+				<textFieldExpression><![CDATA[$F{RUC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
