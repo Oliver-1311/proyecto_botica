@@ -37,8 +37,8 @@ public class Empleados extends javax.swing.JFrame {
      }
      else{
                 // como obtener el mensaje.
-         JOptionPane.showMessageDialog(null, contr.DevolverRegistroDto("call Crud_empleado(1, '" + txtuser.getText() + "', '"
-                 + txtpsw.getText() + "', '" +txtfecha.getText() + "', '"+ jcbtipo.getSelectedItem().toString() + "', '" + jcbtipodoc.getSelectedItem().toString() + "', '" + txtnum.getText()
+         JOptionPane.showMessageDialog(null,contr.DevolverRegistroDto("call Crud_empleado(1, '" + txtuser.getText() + "', '"
+                 + txtpsw.getText() + "', '" +txtfecha.getText() + "', '"+ (Integer.parseInt(jcbtipo.getSelectedItem().toString())+1)+ "', '" + jcbtipodoc.getSelectedItem().toString() + "', '" + txtnum.getText()
                  + "', '" +txtnombres.getText() + "', '"+ txtapell.getText() + "', '" + jcbgen.getSelectedItem().toString() + "', '" + txtdir.getText() + "', 1);", 1));
                buscar(); 
      }
@@ -421,6 +421,7 @@ public void buscar(){
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        crear();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
