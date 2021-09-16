@@ -37,8 +37,8 @@ public class Empleados extends javax.swing.JFrame {
      }
      else{
                 // como obtener el mensaje.
-         JOptionPane.showMessageDialog(null,contr.DevolverRegistroDto("call Crud_empleado(1, '" + txtuser.getText() + "', '"
-                 + txtpsw.getText() + "', '" +txtfecha.getText() + "', '"+ (Integer.parseInt(jcbtipo.getSelectedItem().toString())+1)+ "', '" + jcbtipodoc.getSelectedItem().toString() + "', '" + txtnum.getText()
+         JOptionPane.showMessageDialog(null,contr.DevolverRegistroDto("call Crud_empleado(1, '" + txtuser.getText() + "', md5('" 
+                 + txtpsw.getText() + "'), '" +txtfecha.getText() + "', '"+ String.valueOf(jcbtipo.getSelectedIndex() + 1)+ "', '" + jcbtipodoc.getSelectedItem().toString() + "', '" + txtnum.getText()
                  + "', '" +txtnombres.getText() + "', '"+ txtapell.getText() + "', '" + jcbgen.getSelectedItem().toString() + "', '" + txtdir.getText() + "', 1);", 1));
                buscar(); 
      }
@@ -46,14 +46,14 @@ public class Empleados extends javax.swing.JFrame {
 public void editar(){
          ///limpiar();
          if(jtemple.getSelectedRow()>=0){
-             //llenar();
+//             llenar();
           if(txtnombres.getText().trim().length()==0 || txtapell.getText().trim().length()==0 || txtnum.getText().trim().length()==0||txtdir.getText().trim().length()==0||
         jcbgen.getSelectedIndex()<0||txtuser.getText().trim().length()==0 ||jcbtipodoc.getSelectedIndex()<0||jcbtipo.getSelectedIndex()<0 ||txtpsw.getText().trim().length()==0||
         txtfecha.getText().trim().length()==0 ){
          JOptionPane.showMessageDialog(null,"campos vacios , por favor complete todos los datos");}
           else{
                JOptionPane.showMessageDialog(null,contr.DevolverRegistroDto("call Crud_empleado('"+idEmpleado+"', '"+txtuser.getText() + "', '"
-                 +txtpsw.getText() + "', '" +txtfecha.getText() + "', '"+ jcbtipo.getSelectedItem().toString() + "', '" + jcbtipodoc.getSelectedItem().toString() + "', '" + txtnum.getText()
+                 +txtpsw.getText() + "', '" +txtfecha.getText() + "', '"+ String.valueOf(jcbtipo.getSelectedIndex() + 1) + "', '" + jcbtipodoc.getSelectedItem().toString() + "', '" + txtnum.getText()
                  + "', '" +txtnombres.getText() + "', '"+ txtapell.getText() + "', '" + jcbgen.getSelectedItem().toString() + "', '" + txtdir.getText() + "', 2);",1));
                
                Cancelar();
@@ -71,7 +71,7 @@ public void eliminar(){
            +jtemple.getValueAt(jtemple.getSelectedRow(),2).toString(),"Confirmar",0)==0){
               
            if(contr.Verificarconsulta("SELECT * FROM empleados e "
-                   + "where e.idempleador="+idEmpleado+";")){
+                   + "where e.idempleado="+idEmpleado+";")){
                
             JOptionPane.showMessageDialog(null,"el Proveedor "+jtemple.getValueAt(jtemple.getSelectedRow(),2).toString()
             + " No se debe eliminar  ");
@@ -79,7 +79,7 @@ public void eliminar(){
            }   
            else{
             JOptionPane.showMessageDialog(null,contr.DevolverRegistroDto("call Crud_empleado('"+idEmpleado+"', '"+txtuser.getText() + "', '"
-                 +txtpsw.getText() + "', '" +txtfecha.getText() + "', '"+ jcbtipo.getSelectedItem().toString() + "', '" + jcbtipodoc.getSelectedItem().toString() + "', '" + txtnum.getText()
+                 +txtpsw.getText() + "', '" +txtfecha.getText() + "', '"+ String.valueOf(jcbtipo.getSelectedIndex() + 1) + "', '" + jcbtipodoc.getSelectedItem().toString() + "', '" + txtnum.getText()
                  + "', '" +txtnombres.getText() + "', '"+ txtapell.getText() + "', '" + jcbgen.getSelectedItem().toString() + "', '" + txtdir.getText()+
                  "', 3);",1));
             
@@ -96,6 +96,7 @@ public void eliminar(){
      }
 public void Cancelar(){
         txtbusca.setText(null);
+        txtnombres.setText(null);
         txtnombres.grabFocus();idEmpleado="";
         txtapell.setText(null);
         txtuser.setText(null);
@@ -114,6 +115,22 @@ public void buscar(){
 "inner join tipempleado t on t.idtipEmpleado=e.idtipEmpleado\n" +
 "inner join tipodoc d on d.idtipoDoc=i.idtipoDoc WHERE concat_ws(' ',nom,ape) LIKE '%"+txtbusca.getText()+"%' order by e.idempleado ;",10);
 }
+
+public void llenar(){
+    idEmpleado= jtemple.getModel().getValueAt(jtemple.getSelectedRow(),0).toString();
+    jcbtipodoc.setSelectedItem(jtemple.getModel().getValueAt(jtemple.getSelectedRow(),4));
+    txtnum.setText(jtemple.getModel().getValueAt(jtemple.getSelectedRow(),5).toString());
+    txtnombres.setText(contr.DevolverRegistroDto("select nom,ape from empleado e inner join identificaciong i  on e.identificacion=i.identificacion \n" +
+"WHERE  idempleado="+jtemple.getModel().getValueAt(jtemple.getSelectedRow(),0).toString()+";",1));
+    txtapell.setText(contr.DevolverRegistroDto("select nom,ape from empleado e inner join identificaciong i  on e.identificacion=i.identificacion \n" +
+"WHERE  idempleado="+jtemple.getModel().getValueAt(jtemple.getSelectedRow(),0).toString()+";",2));
+    jcbgen.setSelectedItem(jtemple.getModel().getValueAt(jtemple.getSelectedRow(),2));
+    txtdir.setText(jtemple.getModel().getValueAt(jtemple.getSelectedRow(),3).toString());
+    txtfecha.setText(jtemple.getModel().getValueAt(jtemple.getSelectedRow(),9).toString());
+    jcbtipo.setSelectedItem(jtemple.getModel().getValueAt(jtemple.getSelectedRow(),6));
+    txtuser.setText(jtemple.getModel().getValueAt(jtemple.getSelectedRow(),7).toString());
+    txtpsw.setText(jtemple.getModel().getValueAt(jtemple.getSelectedRow(),8).toString());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -146,7 +163,7 @@ public void buscar(){
         jLabel11 = new javax.swing.JLabel();
         txtfecha = new javax.swing.JFormattedTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        edit = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -301,14 +318,19 @@ public void buscar(){
             }
         });
 
-        jButton2.setText("EDITAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        edit.setText("EDITAR");
+        edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                editActionPerformed(evt);
             }
         });
 
         jButton3.setText("ELIMINAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("CANCELAR");
 
@@ -330,6 +352,11 @@ public void buscar(){
                 txtbuscaActionPerformed(evt);
             }
         });
+        txtbusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtbuscaKeyReleased(evt);
+            }
+        });
 
         jtemple.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -342,6 +369,11 @@ public void buscar(){
                 "ID", "TIPO DE DOCUMENTO", "NUMERO", "NOMBRES Y APELLIDOS", "GÉNERO", "DIRECCIÓN", "FFECHA CONTRATO", "TIPO EMPLEADO", "USUARIO", "CONTRASEÑA"
             }
         ));
+        jtemple.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtempleMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtemple);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -386,7 +418,7 @@ public void buscar(){
                 .addContainerGap()
                 .addComponent(jButton1)
                 .addGap(85, 85, 85)
-                .addComponent(jButton2)
+                .addComponent(edit)
                 .addGap(84, 84, 84)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -403,7 +435,7 @@ public void buscar(){
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(edit)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
@@ -428,9 +460,10 @@ public void buscar(){
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        editar();
+    }//GEN-LAST:event_editActionPerformed
 
     private void txtbuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscaActionPerformed
         // TODO add your handling code here:
@@ -439,6 +472,21 @@ public void buscar(){
     private void jcbgenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbgenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbgenActionPerformed
+
+    private void txtbuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscaKeyReleased
+        // TODO add your handling code here:
+        buscar();
+    }//GEN-LAST:event_txtbuscaKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        eliminar();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jtempleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtempleMouseClicked
+        // TODO add your handling code here:
+        llenar();
+    }//GEN-LAST:event_jtempleMouseClicked
 
     /**
      * @param args the command line arguments
@@ -479,8 +527,8 @@ public void buscar(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton edit;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

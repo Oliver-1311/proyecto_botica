@@ -9,7 +9,7 @@ public class Controlador {
      cbo.removeAllItems();try {Base.rt = DevolverRegistro(Consulta);
      cbo.addItem("<Seleccionar>");
      while (Base.rt.next()) {cbo.addItem(Base.rt.getString(pos));}
-     cbo.setSelectedIndex(-1);} catch (Exception e) {e.printStackTrace();}
+     cbo.setSelectedIndex(0);} catch (Exception e) {e.printStackTrace();}
     }    
     public ResultSet DevolverRegistro(String sq) {
      try {Base.st = Base.conec.createStatement();Base.rt = 
