@@ -3,14 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/oli/Desktop/SG_Pacientes_COVID/botica/src/botica/main_admin.java</file>
-            <file>file:/Users/oli/Desktop/SG_Pacientes_COVID/botica/src/Panels_admin/p_Medicamentos.java</file>
-            <file>file:/Users/oli/Desktop/SG_Pacientes_COVID/botica/src/Panels_admin/p_Usuario.java</file>
-            <file>file:/Users/oli/Desktop/SG_Pacientes_COVID/botica/src/controler/Conexion.java</file>
-            <file>file:/Users/oli/Desktop/SG_Pacientes_COVID/botica/src/Panels_admin/p_Compra.java</file>
-            <file>file:/Users/oli/Desktop/SG_Pacientes_COVID/botica/src/botica/login.java</file>
-            <file>file:/Users/oli/Desktop/SG_Pacientes_COVID/botica/src/Panels_admin/p_home.java</file>
-            <file>file:/Users/oli/Desktop/SG_Pacientes_COVID/botica/src/botica/MainVendedor.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/Panels_admin/p_home.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/ventanas/main_admin.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/all_frames/Medicamento.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/all_frames/Empleados.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/all_frames/FrmAcceso.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/Panels_admin/p_Proveedores.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/Panels_admin/p_Medicamentos.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/Panels_admin/p_Usuario.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/Panels_admin/p_Compra.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/all_frames/usuario.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/Panels_admin/p_Reportes.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/Clases/Conexion.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/Panels_admin/NewJPanel.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/all_frames/crudCliente.java</file>
+            <file>file:/C:/Users/Ramos/Desktop/git/proyecto_botica/botica/src/all_frames/Proveedor.java</file>
         </group>
     </open-files>
 </project-private>

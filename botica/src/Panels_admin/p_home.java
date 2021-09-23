@@ -154,10 +154,11 @@ public class p_home extends javax.swing.JPanel {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgiso/farmacia-online.png"))); // NOI18N
         jPanel6.add(jLabel18, java.awt.BorderLayout.CENTER);
 
+        label1.setAlignment(java.awt.Label.CENTER);
         label1.setBackground(new java.awt.Color(227, 242, 253));
         label1.setFont(new java.awt.Font("Futura", 3, 18)); // NOI18N
         label1.setForeground(new java.awt.Color(51, 51, 51));
-        label1.setText("Reservar Pedido");
+        label1.setText("Buscar");
         jPanel6.add(label1, java.awt.BorderLayout.PAGE_END);
         label1.getAccessibleContext().setAccessibleName("Jpanel6");
 
