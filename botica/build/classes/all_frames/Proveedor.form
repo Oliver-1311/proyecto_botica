@@ -375,6 +375,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtbusca">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtbuscaKeyReleased"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
@@ -398,6 +401,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtbproveMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -65,7 +65,7 @@ public void eliminar(){
           if(JOptionPane.showConfirmDialog(null,"Esta seguro de Eliminar \n el registro del proveedor: "
            +jtbprove.getValueAt(jtbprove.getSelectedRow(),2).toString(),"Confirmar",0)==0){
               
-           if(contr.Verificarconsulta("SELECT * FROM proveedor p "
+           if(!contr.Verificarconsulta("select * from proveedor p  "
                    + "where p.idproveedor="+idProveedor+";")){
                
             JOptionPane.showMessageDialog(null,"el Proveedor "+jtbprove.getValueAt(jtbprove.getSelectedRow(),2).toString()
@@ -104,7 +104,7 @@ public void eliminar(){
      public void buscar(){
      contr.LlenarJTabla(md2,"select p.idproveedor,p.nom_prove PROVEEDOR,concat_ws(' ',i.nom, i.ape) Representante , gen, dir, nomTipDoc,numIden,registrSan\n" +
 "from proveedor p inner join identificaciong i on i.identificacion=p.identificacion\n" +
-"inner join tipodoc t on t.idtipoDoc=i.idtipoDoc WHERE concat_ws(' ',nom,ape) LIKE '%"+txtbusca.getText()+"%' order by idproveedor ;",8);
+"inner join tipodoc t on t.idtipoDoc=i.idtipoDoc WHERE p.nom_prove LIKE '%"+txtbusca.getText()+"%' order by idproveedor ;",8);
     }
      public void actualizarTabla(){
     contr.LlenarJTabla(md2, "select p.idproveedor,p.nom_prove PROVEEDOR,concat_ws(' ',i.nom, i.ape) Representante , gen, dir, nomTipDoc,numIden,registrSan\n"
@@ -112,6 +112,19 @@ public void eliminar(){
                 + "inner join tipodoc t on t.idtipoDoc=i.idtipoDoc\n"
                 + "order by p.idproveedor", 8);
 }
+public void llenar(){
+    idProveedor= jtbprove.getModel().getValueAt(jtbprove.getSelectedRow(),0).toString();
+    txtProve.setText(jtbprove.getModel().getValueAt(jtbprove.getSelectedRow(),1).toString());
+    txtnomb.setText(contr.DevolverRegistroDto("select nom,ape from proveedor p inner join identificaciong i  on p.identificacion=i.identificacion \n" +
+"WHERE  idproveedor="+jtbprove.getModel().getValueAt(jtbprove.getSelectedRow(),0).toString()+";",1));
+    txtapell.setText(contr.DevolverRegistroDto("select nom,ape from proveedor p inner join identificaciong i  on p.identificacion=i.identificacion \n" +
+"WHERE  idproveedor="+jtbprove.getModel().getValueAt(jtbprove.getSelectedRow(),0).toString()+";",2));
+    jcbgen.setSelectedItem(jtbprove.getModel().getValueAt(jtbprove.getSelectedRow(),3));
+    txtdirec.setText(jtbprove.getModel().getValueAt(jtbprove.getSelectedRow(),4).toString());
+    jcbtipdoc.setSelectedItem(jtbprove.getModel().getValueAt(jtbprove.getSelectedRow(),5));
+    txtnumero.setText(jtbprove.getModel().getValueAt(jtbprove.getSelectedRow(),6).toString());
+    txtrs.setText(jtbprove.getModel().getValueAt(jtbprove.getSelectedRow(),7).toString());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -272,6 +285,12 @@ public void eliminar(){
 
         jLabel10.setText("BUSCAR");
 
+        txtbusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtbuscaKeyReleased(evt);
+            }
+        });
+
         jtbprove.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -290,6 +309,11 @@ public void eliminar(){
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jtbprove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbproveMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jtbprove);
@@ -366,6 +390,16 @@ public void eliminar(){
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void txtbuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscaKeyReleased
+        // TODO add your handling code here:
+        buscar();
+    }//GEN-LAST:event_txtbuscaKeyReleased
+
+    private void jtbproveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbproveMouseClicked
+        // TODO add your handling code here:
+        llenar();
+    }//GEN-LAST:event_jtbproveMouseClicked
 
     /**
      * @param args the command line arguments
