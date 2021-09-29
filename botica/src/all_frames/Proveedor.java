@@ -9,15 +9,11 @@ import Clases.Controlador;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Ramos
- */
 public class Proveedor extends javax.swing.JFrame {
     Controlador contr = new Controlador();
     DefaultTableModel md2 = new DefaultTableModel();
     String idProveedor="";
-    public Proveedor() {
+public Proveedor() {
         initComponents();
         md2.setColumnIdentifiers(new String[]{"id", "Proveedor", "Representante", "Género", "Dirección", "Tipo documento", "NÚMERO", "Registro Sanitario"});
         buscar();
