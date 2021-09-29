@@ -178,7 +178,7 @@ public class p_Compra extends javax.swing.JPanel {
 
         jLabel11.setFont(new java.awt.Font("Futura", 3, 22)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Añadir Medicamento");
+        jLabel11.setText("Nueva Compra");
         jPanel7.add(jLabel11, java.awt.BorderLayout.PAGE_END);
 
         jPanel6.add(jPanel7);
@@ -192,7 +192,7 @@ public class p_Compra extends javax.swing.JPanel {
 
         jLabel12.setFont(new java.awt.Font("Futura", 3, 22)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setText("Editar Medicamento");
+        jLabel12.setText("Ver Compras");
         jPanel8.add(jLabel12, java.awt.BorderLayout.PAGE_END);
 
         jPanel6.add(jPanel8);
