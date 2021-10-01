@@ -7,6 +7,7 @@ package all_frames;
 
 import Clases.Controlador;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,7 +31,56 @@ public class Medicamento extends javax.swing.JFrame {
                 + "from medicamento m inner join categoria c on c.idcategoria=m.idcategoria", 1);
         
     }
-    
+    public void crear(){
+     if(txtnombre.getText().trim().length()==0 || txtdesc.getText().trim().length()==0 || txtprecio.getText().trim().length()==0||txtstock.getText().trim().length()==0||
+        jcbcat.getSelectedIndex()<0){
+         JOptionPane.showMessageDialog(null,"campos vacios , por favor complete todos los datos");
+     }
+     else{
+                // como obtener el mensaje.
+         JOptionPane.showMessageDialog(null, contr.DevolverRegistroDto("call Crud_proveedor(1, '" + txtnombre.getText() + "', '"
+                 + txtprecio.getText() + "', '" + jcbcat.getSelectedItem().toString() + "', '" + txtdesc.getText() + "', '" + txtstock.getText()
+                 + "', 1);", 1));
+               buscar(); 
+     }
+//     actualizarTabla();
+    }
+public void editar(){
+         ///limpiar();
+         if(JTMEDIC.getSelectedRow()>=0){
+             //llenar();
+          if(txtnombre.getText().trim().length()==0 || txtdesc.getText().trim().length()==0 || txtprecio.getText().trim().length()==0||txtstock.getText().trim().length()==0||
+        jcbcat.getSelectedIndex()<0){
+         JOptionPane.showMessageDialog(null,"campos vacios , por favor complete todos los datos");}
+          else{
+               JOptionPane.showMessageDialog(null,contr.DevolverRegistroDto("call Crud_proveedor('"+idMedicamento+"', '"+txtnombre.getText() + "', '"
+                 + txtprecio.getText() + "', '" + jcbcat.getSelectedItem().toString() + "', '" + txtdesc.getText() + "', '" + txtstock.getText()
+                 + "', 2);",1));
+               
+               Cancelar();
+               txtnombre.grabFocus();
+               
+          }
+         }
+         else{
+          JOptionPane.showMessageDialog(null,"Seleccionar primero el elemento");JTMEDIC.grabFocus();
+         }
+//         actualizarTabla();
+       }
+public void Cancelar(){
+        txtbusca.setText(null);
+        txtnombre.grabFocus();idMedicamento="";
+        txtdesc.setText(null);
+        txtprecio.setText(null);
+        txtstock.setText(null);
+        jcbcat.setSelectedIndex(-1);
+        buscar();
+    }
+     public void buscar(){
+     contr.LlenarJTabla(md2,"select p.idproveedor,p.nom_prove PROVEEDOR,concat_ws(' ',i.nom, i.ape) Representante , gen, dir, nomTipDoc,numIden,registrSan\n" +
+"from proveedor p inner join identificaciong i on i.identificacion=p.identificacion\n" +
+"inner join tipodoc t on t.idtipoDoc=i.idtipoDoc WHERE p.nom_prove LIKE '%"+txtbusca.getText()+"%' order by idproveedor ;",8);
+    }
 public void llenar(){
     idMedicamento= JTMEDIC.getModel().getValueAt(JTMEDIC.getSelectedRow(),0).toString();
     txtnombre.setText(JTMEDIC.getModel().getValueAt(JTMEDIC.getSelectedRow(),1).toString());
@@ -65,10 +115,11 @@ public void llenar(){
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTMEDIC = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnagregar = new javax.swing.JButton();
+        btnedit = new javax.swing.JButton();
+        btnsalir = new javax.swing.JButton();
+        btnbuscar = new javax.swing.JButton();
+        txtbusca = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,6 +221,11 @@ public void llenar(){
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        JTMEDIC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTMEDICMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(JTMEDIC);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -189,53 +245,105 @@ public void llenar(){
                 .addContainerGap())
         );
 
-        jButton1.setText("jButton1");
+        btnagregar.setText("Agregar");
+        btnagregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnagregarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        btnedit.setText("Editar");
+        btnedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
+        btnsalir.setText("Salir");
+        btnsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalirActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton4");
+        btnbuscar.setText("Buscar");
+
+        txtbusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtbuscaKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addComponent(btnagregar)
+                                .addGap(96, 96, 96)
+                                .addComponent(btnedit)
+                                .addGap(101, 101, 101)
+                                .addComponent(btnsalir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(txtbusca, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnbuscar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jButton1)
-                .addGap(102, 102, 102)
-                .addComponent(jButton2)
-                .addGap(98, 98, 98)
-                .addComponent(jButton3)
-                .addGap(127, 127, 127)
-                .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnagregar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnedit, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnsalir, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtbusca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnbuscar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JTMEDICMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTMEDICMouseClicked
+        llenar();
+    }//GEN-LAST:event_JTMEDICMouseClicked
+
+    private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
+        crear();
+    }//GEN-LAST:event_btnagregarActionPerformed
+
+    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
+        editar();
+    }//GEN-LAST:event_btneditActionPerformed
+
+    private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnsalirActionPerformed
+
+    private void txtbuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscaKeyReleased
+      buscar();
+    }//GEN-LAST:event_txtbuscaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -275,10 +383,10 @@ public void llenar(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable JTMEDIC;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnagregar;
+    private javax.swing.JButton btnbuscar;
+    private javax.swing.JButton btnedit;
+    private javax.swing.JButton btnsalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -291,6 +399,7 @@ public void llenar(){
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> jcbcat;
+    private javax.swing.JTextField txtbusca;
     private javax.swing.JTextField txtdesc;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txtprecio;
