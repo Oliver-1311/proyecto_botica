@@ -62,18 +62,23 @@ public class login extends javax.swing.JFrame {
             if(txtpas.getText().trim().length()==0){
                 JOptionPane.showMessageDialog(null,"Ingrese su Contraseña ","Advertencia del sistema ",JOptionPane.WARNING_MESSAGE);
             }else{
-               cntrl.Verificarconsulta("select *from usuario \n" +
-                "where (nom_usu='"+txtusuario.getText().trim()+"' or coreo='"+txtusuario.getText().trim()+"') and contra=md5('"+txtpas.getText().trim()+"')");
-                dispose();
+                if(cntrl.Verificarconsulta("select *from empleado \n" +
+                "where (nom_user='"+txtusuario.getText().trim()+"') and psw='"+txtpas.getText().trim()+"'")){
+                    dispose();
                     main_admin main=new main_admin();
-                    main.setVisible(true);
                     
-                    main.jLabel1.setText(""+cntrl.DevolverRegistroDto("select * from usuario\n" +
-"                   where (nom_usu='"+txtusuario.getText().trim()+"' or coreo='"+txtusuario.getText().trim()+"')", 2));        
+                    main.jLabel1.setText(""+cntrl.DevolverRegistroDto("select * from empleado\n" +
+"                   where (nom_user='"+txtusuario.getText().trim()+"')", 2));   
+                    main.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Los datos Ingresados son incorrectos, por favor intente nuevamente", "Aviso", JOptionPane.WARNING_MESSAGE);
+                }
+               
+                
             }
         }
         }
-    
+     
     class FondoPanel extends JPanel{
     private Image imagen;
     @Override

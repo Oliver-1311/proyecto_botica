@@ -6,6 +6,7 @@
 package all_frames;
 
 import Clases.Controlador;
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +26,7 @@ public class crudCliente extends javax.swing.JFrame {
         mdl.setColumnIdentifiers(new String[]{"ID","n° identificacion","nombre y apellidos","genero","direccion","documento"});
         buscar();
         jTable1.setModel(mdl); 
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     public void crear(){
@@ -84,7 +86,6 @@ public class crudCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,contr.DevolverRegistroDto("call Crud_cliente('"+idCliente+"', '"+jcbdocumen.getSelectedItem().toString()+"', '"+
                 txtident.getText()+"', '"+txtnombres.getText()+"', '"+txtapell.getText()+"', '"+
                 jcbgen.getSelectedItem().toString()+"', '"+txtdire.getText()+"', 3);",1));
-            
             Cancelar();
             txtident.grabFocus();
            }
