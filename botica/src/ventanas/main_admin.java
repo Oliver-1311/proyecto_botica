@@ -70,7 +70,6 @@ public class main_admin extends javax.swing.JFrame {
         btnCompras = new java.awt.Label();
         jPanel8 = new javax.swing.JPanel();
         btnReportes = new java.awt.Label();
-        btnGraficos = new java.awt.Label();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -85,7 +84,6 @@ public class main_admin extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -278,6 +276,7 @@ public class main_admin extends javax.swing.JFrame {
 
         menu.add(jPanel7);
 
+        jPanel8.setBackground(new java.awt.Color(245, 245, 245));
         jPanel8.setLayout(new java.awt.GridLayout(2, 0));
 
         btnReportes.setBackground(new java.awt.Color(245, 245, 245));
@@ -303,30 +302,6 @@ public class main_admin extends javax.swing.JFrame {
             }
         });
         jPanel8.add(btnReportes);
-
-        btnGraficos.setBackground(new java.awt.Color(245, 245, 245));
-        btnGraficos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGraficos.setFont(new java.awt.Font("Geneva", 1, 16)); // NOI18N
-        btnGraficos.setForeground(new java.awt.Color(102, 102, 102));
-        btnGraficos.setText("G. Estadísticos");
-        btnGraficos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGraficosMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGraficosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGraficosMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnGraficosMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnGraficosMouseReleased(evt);
-            }
-        });
-        jPanel8.add(btnGraficos);
 
         menu.add(jPanel8);
 
@@ -387,10 +362,6 @@ public class main_admin extends javax.swing.JFrame {
         jLabel13.setText(" ");
         jPanel11.add(jLabel13);
 
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/bar-chart-alt-regular-24.png"))); // NOI18N
-        jLabel14.setText(" ");
-        jPanel11.add(jLabel14);
-
         jPanel3.add(jPanel11);
 
         jLabel6.setText("jLabel6");
@@ -439,10 +410,6 @@ public class main_admin extends javax.swing.JFrame {
         btnReportes.setBackground(new Color(200,200,200));
     }//GEN-LAST:event_btnReportesMouseEntered
 
-    private void btnGraficosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGraficosMouseEntered
-        btnGraficos.setBackground(new Color(200,200,200));
-    }//GEN-LAST:event_btnGraficosMouseEntered
-
     private void btnUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMouseExited
         btnUser.setBackground(new Color(245,245,245));
     }//GEN-LAST:event_btnUserMouseExited
@@ -466,10 +433,6 @@ public class main_admin extends javax.swing.JFrame {
     private void btnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseExited
         btnReportes.setBackground(new Color(245,245,245));
     }//GEN-LAST:event_btnReportesMouseExited
-
-    private void btnGraficosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGraficosMouseExited
-        btnGraficos.setBackground(new Color(245,245,245));
-    }//GEN-LAST:event_btnGraficosMouseExited
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
        
@@ -510,10 +473,6 @@ public class main_admin extends javax.swing.JFrame {
     private void btnReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReportesMousePressed
-
-    private void btnGraficosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGraficosMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGraficosMousePressed
 
     private void btnHomeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseReleased
         
@@ -599,10 +558,6 @@ public class main_admin extends javax.swing.JFrame {
         p_principal.validate();
     }//GEN-LAST:event_btnReportesMouseReleased
 
-    private void btnGraficosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGraficosMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGraficosMouseReleased
-
     private void btnUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMouseClicked
         
     }//GEN-LAST:event_btnUserMouseClicked
@@ -622,10 +577,6 @@ public class main_admin extends javax.swing.JFrame {
     private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReportesMouseClicked
-
-    private void btnGraficosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGraficosMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGraficosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -664,7 +615,6 @@ public class main_admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Label btnCompras;
-    private java.awt.Label btnGraficos;
     private java.awt.Label btnHome;
     private java.awt.Label btnMedicamentis;
     private java.awt.Label btnProovedores;
@@ -678,7 +628,6 @@ public class main_admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

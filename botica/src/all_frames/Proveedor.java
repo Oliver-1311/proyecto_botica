@@ -22,7 +22,7 @@ public Proveedor() {
         jtbprove.setModel(md2);
         actualizarTabla();
         cls.soloNumber(txtnumero);
-        
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 public void crear(){
      if(txtrs.getText().trim().length()==0 || txtProve.getText().trim().length()==0 || txtnumero.getText().trim().length()==0||txtdirec.getText().trim().length()==0||
@@ -136,7 +136,7 @@ public void llenar(){
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        barraEdicon = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtapell = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -154,10 +154,10 @@ public void llenar(){
         txtdirec = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jcbgen = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -183,93 +183,101 @@ public void llenar(){
         setBackground(new java.awt.Color(0, 0, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        barraEdicon.setBackground(new java.awt.Color(102, 153, 255));
+        barraEdicon.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("APELLIDOS:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, -1, -1));
+        barraEdicon.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, -1, -1));
 
         txtapell.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtapellActionPerformed(evt);
             }
         });
-        jPanel1.add(txtapell, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 198, -1));
+        barraEdicon.add(txtapell, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 198, -1));
 
         jLabel2.setText("NOMBRE:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, 20));
+        barraEdicon.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, 20));
 
         txtProve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtProveActionPerformed(evt);
             }
         });
-        jPanel1.add(txtProve, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 121, -1));
+        barraEdicon.add(txtProve, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 121, -1));
 
         jLabel3.setText("PROVEEDOR:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
-        jPanel1.add(txtnomb, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 150, -1));
+        barraEdicon.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        barraEdicon.add(txtnomb, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 150, -1));
 
         jLabel4.setText("REGISTRO SANITARIO");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
-        jPanel1.add(txtrs, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 130, 121, -1));
+        barraEdicon.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
+        barraEdicon.add(txtrs, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 130, 121, -1));
 
         jLabel8.setText("DATOS DEL PROVEEDOR");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 11, -1, -1));
+        barraEdicon.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 11, -1, -1));
 
         jLabel5.setText("TIPO DOCUMENTO:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        barraEdicon.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         jcbtipdoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "RUC", "CARNET DE EXTRANJERIA" }));
+<<<<<<< HEAD
         jPanel1.add(jcbtipdoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 100, -1));
 
         jLabel6.setText("NÚMERO:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
         jPanel1.add(txtnumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 110, -1));
+=======
+        barraEdicon.add(jcbtipdoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 100, -1));
+
+        jLabel6.setText("NÚMERO:");
+        barraEdicon.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
+        barraEdicon.add(txtnumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 110, -1));
+>>>>>>> 9bccee71870d8688722715cd1209106bf9ba46e1
 
         jLabel7.setText("DIRECCIÓN:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
-        jPanel1.add(txtdirec, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 230, -1));
+        barraEdicon.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        barraEdicon.add(txtdirec, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 230, -1));
 
         jLabel11.setText("GÉNERO:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, -1));
+        barraEdicon.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, -1));
 
         jcbgen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
-        jPanel1.add(jcbgen, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 120, -1));
+        barraEdicon.add(jcbgen, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 120, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 180));
+        getContentPane().add(barraEdicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 180));
 
-        jButton1.setText("CREAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCrear.setText("CREAR");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCrearActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+        getContentPane().add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
 
-        jButton2.setText("EDITAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
 
-        jButton3.setText("ELIMINAR");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, -1, -1));
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, -1, -1));
 
-        jButton4.setText("CANCELAR");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, -1, -1));
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, -1, -1));
 
         jButton5.setText("SALIR");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -366,25 +374,25 @@ public void llenar(){
         // TODO add your handling code here:
     }//GEN-LAST:event_txtapellActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
         crear();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCrearActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         editar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         eliminar();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     Cancelar();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -440,10 +448,11 @@ public void llenar(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    public javax.swing.JPanel barraEdicon;
+    public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnCrear;
+    public javax.swing.JButton btnEditar;
+    public javax.swing.JButton btnEliminar;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -456,7 +465,6 @@ public void llenar(){
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

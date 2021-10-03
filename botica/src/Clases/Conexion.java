@@ -9,7 +9,7 @@ public class Conexion {
  //**************METODOS**************
  public Conexion(){Conectar();}
  public void Conectar(){
-  try{usu="root";contraseña="root";host="localhost";db="mibotica"; 
+  try{usu="root";contraseña="12345678";host="localhost";db="mibotica"; 
    String url="jdbc:mysql://localhost:3306/"+db+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
    Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
    conec=DriverManager.getConnection(url, usu, contraseña);

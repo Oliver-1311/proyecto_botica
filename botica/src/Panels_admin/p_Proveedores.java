@@ -5,6 +5,8 @@
  */
 package Panels_admin;
 
+import all_frames.Proveedor;
+
 /**
  *
  * @author oli
@@ -16,6 +18,36 @@ public class p_Proveedores extends javax.swing.JPanel {
      */
     public p_Proveedores() {
         initComponents();
+       
+    }
+    public void crearNuevoProovedor(){
+         all_frames.Proveedor proveedor=new all_frames.Proveedor();
+        proveedor.btnEditar.setVisible(false);
+        proveedor.btnEliminar.setVisible(false);
+        proveedor.setVisible(true);
+    }
+   public void editarProovedor(){
+         all_frames.Proveedor proveedor=new all_frames.Proveedor();
+        proveedor.btnCrear.setVisible(false);
+        proveedor.btnEliminar.setVisible(false);
+        proveedor.setVisible(true);
+    }
+    public void EliminarProovedor(){
+         all_frames.Proveedor proveedor=new all_frames.Proveedor();
+        proveedor.btnCrear.setVisible(false);
+        proveedor.btnEditar.setVisible(false);
+        proveedor.btnCancelar.setVisible(false);
+        proveedor.barraEdicon.setVisible(false);
+        proveedor.setVisible(true);
+    }
+     public void listaProovedor(){
+         all_frames.Proveedor proveedor=new all_frames.Proveedor();
+        proveedor.btnCrear.setVisible(false);
+        proveedor.btnEditar.setVisible(false);
+        proveedor.btnCancelar.setVisible(false);
+        proveedor.btnEliminar.setVisible(false);
+        proveedor.barraEdicon.setVisible(false);
+        proveedor.setVisible(true);
     }
 
     /**
@@ -154,11 +186,21 @@ public class p_Proveedores extends javax.swing.JPanel {
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgiso/add-friend.png"))); // NOI18N
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
         jPanel7.add(jLabel7, java.awt.BorderLayout.CENTER);
 
         jLabel11.setFont(new java.awt.Font("Futura", 3, 22)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Añadir Proveedor");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
         jPanel7.add(jLabel11, java.awt.BorderLayout.PAGE_END);
 
         jPanel6.add(jPanel7);
@@ -168,11 +210,21 @@ public class p_Proveedores extends javax.swing.JPanel {
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgiso/user-edit.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
         jPanel8.add(jLabel8, java.awt.BorderLayout.CENTER);
 
         jLabel12.setFont(new java.awt.Font("Futura", 3, 22)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("Editar proveedor");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
         jPanel8.add(jLabel12, java.awt.BorderLayout.PAGE_END);
 
         jPanel6.add(jPanel8);
@@ -182,19 +234,35 @@ public class p_Proveedores extends javax.swing.JPanel {
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgiso/user.png"))); // NOI18N
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
         jPanel9.add(jLabel9, java.awt.BorderLayout.CENTER);
 
         jLabel13.setFont(new java.awt.Font("Futura", 3, 22)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Eliminar Proveedor");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
         jPanel9.add(jLabel13, java.awt.BorderLayout.PAGE_END);
 
         jPanel6.add(jPanel9);
 
+        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3));
         jPanel10.setLayout(new java.awt.BorderLayout());
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgiso/wireframe.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
         jPanel10.add(jLabel10, java.awt.BorderLayout.CENTER);
 
         jLabel14.setFont(new java.awt.Font("Futura", 3, 24)); // NOI18N
@@ -205,6 +273,11 @@ public class p_Proveedores extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Futura", 3, 20)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Lista de Proveedores");
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+        });
         jPanel10.add(jLabel15, java.awt.BorderLayout.PAGE_END);
 
         jPanel6.add(jPanel10);
@@ -213,6 +286,39 @@ public class p_Proveedores extends javax.swing.JPanel {
 
         add(jPanel5, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+    
+       crearNuevoProovedor();
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        crearNuevoProovedor();
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        editarProovedor();
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        editarProovedor();
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        EliminarProovedor();
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        EliminarProovedor();
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        listaProovedor();
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        listaProovedor();
+    }//GEN-LAST:event_jLabel15MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
