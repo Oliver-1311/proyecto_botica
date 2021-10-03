@@ -3,21 +3,110 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces;
+package all_frames;
 
-/**
- *
- * @author jesus
- */
+import Clases.Controlador;
+import Clases.validar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
 public class detCompra extends javax.swing.JFrame {
 
-    /**
-     * Creates new form detCompra
-     */
+    Controlador contr = new Controlador();
+    DefaultTableModel mdl = new DefaultTableModel();
+    String idCompra = "";
+    validar cls = new validar();
     public detCompra() {
         initComponents();
+         mdl.setColumnIdentifiers(new String[]{"id", "Guia", "Fecha", "Estado", "Marca", "Cantidad","costo unitario","Medicamento",
+         "Presentación","proveedor","Empleado"});
+        jtdecompr.setModel(mdl);
+        contr.LlenarJTabla(mdl, "select iddetCompra, guiaCompra, fechCompra, estado,nomMarc, cantidad, costUC, nomMed, tipoPre, nom_prove, nom_user\n"
+                + "from detcompra dc inner join compra c on c.idcompra=dc.idcompra\n"
+                + "inner join marca mc on mc.idmarca=c.idmarca inner join presentacion p on p.idpresentacion=c.idcompra\n"
+                + "inner join proveedor pr on pr.idproveedor=dc.idproveedor inner join empleado e on e.idempleado=dc.idempleado\n"
+                + "group by iddetCompra; ", 11);
+        contr.LlenarCombo(jcbmarca, "select nomMarc\n"
+                + "from marca ", 1);
+        contr.LlenarCombo(jcbpresent, "select tipoPre\n"
+                + "from presentacion", 1);
+        contr.LlenarCombo(jcbprovedor, "select nom_prove\n"
+                + "from proveedor", 1);
+        contr.LlenarCombo(jcbempleado, "select  nom_user\n"
+                + "from empleado e inner join tipempleado t on t.idtipEmpleado=e.idtipEmpleado\n"
+                + "where e.idtipEmpleado='2';", 1);
+        txtfecha.setText(fechaactual());
+        cls.soloNumber(txtcantidad);
     }
-
+        public void crear() {
+        if ( txtguia.getText().trim().length() == 0||txtfecha.getText().trim().length() == 0 || txtestado.getText().trim().length() == 0 ||
+                jcbmarca.getSelectedIndex() < 0||txtcantidad.getText().trim().length() == 0 || txtcostounitario.getText().trim().length() == 0||
+                txtmedicamento.getText().trim().length() == 0|| jcbpresent.getSelectedIndex() < 0||jcbprovedor.getSelectedIndex() < 0||jcbempleado.getSelectedIndex() < 0) {
+            JOptionPane.showMessageDialog(null, "campos vacios , por favor complete todos los datos");
+        } else {
+            // como obtener el mensaje.
+            JOptionPane.showMessageDialog(null, contr.DevolverRegistroDto("call Crud_detallcompra(1, '" +txtguia.getText()+"', '"+txtfecha.getText()+ "', '" +
+                    txtestado.getText()+"', '"+jcbmarca.getSelectedItem().toString() + "', '" +txtcantidad.getText()+ "', '"
+                    + txtcostounitario.getText() + "', '" + txtmedicamento.getText() + "', '" + jcbpresent.getSelectedItem().toString() + "', '" + jcbprovedor.getSelectedItem().toString() + "', '"
+                    + "', '" + jcbempleado.getSelectedItem().toString() + "', '" + "', 1);", 1));
+        }
+    }    public void editar() {
+        ///limpiar();
+        if (jtdecompr.getSelectedRow() >= 0) {
+//             llenar();
+            if (txtguia.getText().trim().length() == 0||txtfecha.getText().trim().length() == 0 || txtestado.getText().trim().length() == 0 ||
+                jcbmarca.getSelectedIndex() < 0||txtcantidad.getText().trim().length() == 0 || txtcostounitario.getText().trim().length() == 0||
+                txtmedicamento.getText().trim().length() == 0|| jcbpresent.getSelectedIndex() < 0||jcbprovedor.getSelectedIndex() < 0||jcbempleado.getSelectedIndex() < 0) {
+                JOptionPane.showMessageDialog(null, "campos vacios , por favor complete todos los datos");
+            } else {
+                JOptionPane.showMessageDialog(null, contr.DevolverRegistroDto("call Crud_detallcompra('" + idCompra + "', '" + txtguia.getText()+"', '"+txtfecha.getText()+ "', '" +
+                    txtestado.getText()+"', '"+jcbmarca.getSelectedItem().toString() + "', '" +txtcantidad.getText()+ "', '"
+                    + txtcostounitario.getText() + "', '" + txtmedicamento.getText() + "', '" + jcbpresent.getSelectedItem().toString() + "', '" + jcbprovedor.getSelectedItem().toString() + "', '"
+                    + "', '" + jcbempleado.getSelectedItem().toString() + "', '" + "', 2);", 1));
+//               Cancelar();
+                txtguia.grabFocus();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar primero el elemento");
+            jtdecompr.grabFocus();
+        }
+    }
+    public void Cancelar() {
+        txtguia.setText(null);
+        txtfecha.setText(null);
+        txtcantidad.setText(null);
+        txtestado.setText(null);
+        idCompra = "";
+        txtcostounitario.setText(null);
+        txtmedicamento.setText(null);
+        jcbempleado.setSelectedIndex(-1);
+        jcbmarca.setSelectedIndex(-1);
+        jcbpresent.setSelectedIndex(-1);
+        jcbprovedor.setSelectedIndex(-1);
+        txtguia.grabFocus();
+    }
+    
+    public void llenar() {
+        idCompra = jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 0).toString();
+        txtguia.setText(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 1).toString());
+        txtfecha.setText(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 2).toString());
+        txtestado.setText(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 3).toString());
+        txtcantidad.setText(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 5).toString());
+        txtcostounitario.setText(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 6).toString());
+        txtmedicamento.setText(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 7).toString());
+        jcbmarca.setSelectedItem(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 4));
+        jcbpresent.setSelectedItem(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 8));
+        jcbprovedor.setSelectedItem(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 9));
+        jcbempleado.setSelectedItem(jtdecompr.getModel().getValueAt(jtdecompr.getSelectedRow(), 10));
+    }
+        public static String fechaactual(){
+        Date fecha= new Date();
+        SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
+        return formatoFecha.format(fecha);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,19 +129,19 @@ public class detCompra extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        jcbprovedor = new javax.swing.JComboBox<>();
+        jcbempleado = new javax.swing.JComboBox<>();
+        txtcantidad = new javax.swing.JTextField();
+        txtfecha = new javax.swing.JTextField();
+        txtestado = new javax.swing.JTextField();
+        txtguia = new javax.swing.JTextField();
+        txtcostounitario = new javax.swing.JTextField();
+        txtmedicamento = new javax.swing.JTextField();
+        jcbpresent = new javax.swing.JComboBox<>();
+        jcbmarca = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtdecompr = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -86,9 +175,9 @@ public class detCompra extends javax.swing.JFrame {
 
         jLabel11.setText("Empleado:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbprovedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbempleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -101,8 +190,8 @@ public class detCompra extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, 0, 175, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jcbempleado, 0, 175, Short.MAX_VALUE)
+                    .addComponent(jcbprovedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -111,17 +200,17 @@ public class detCompra extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbprovedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbpresent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbmarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,7 +222,7 @@ public class detCompra extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox4, 0, 126, Short.MAX_VALUE))
+                        .addComponent(jcbmarca, 0, 128, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -141,15 +230,15 @@ public class detCompra extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField5))))
+                            .addComponent(txtestado, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(txtfecha)
+                            .addComponent(txtguia))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jcbpresent, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -162,9 +251,9 @@ public class detCompra extends javax.swing.JFrame {
                                 .addComponent(jLabel7)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcostounitario, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtmedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -187,32 +276,32 @@ public class detCompra extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtguia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcostounitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtmedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel8)
                                 .addComponent(jLabel9)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jcbmarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcbpresent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 153));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtdecompr.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -223,7 +312,12 @@ public class detCompra extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "null", "Title 7", "Title 8", "Title 9"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jtdecompr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtdecomprMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtdecompr);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -240,14 +334,34 @@ public class detCompra extends javax.swing.JFrame {
         );
 
         jButton4.setText("salir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("cancelar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("eliminar");
 
         jButton2.setText("editar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         crear.setText("crear");
+        crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -307,6 +421,26 @@ public class detCompra extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
+        crear();
+    }//GEN-LAST:event_crearActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        editar();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Cancelar();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jtdecomprMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtdecomprMouseClicked
+       llenar();
+    }//GEN-LAST:event_jtdecomprMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -348,10 +482,6 @@ public class detCompra extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -368,12 +498,16 @@ public class detCompra extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JComboBox<String> jcbempleado;
+    private javax.swing.JComboBox<String> jcbmarca;
+    private javax.swing.JComboBox<String> jcbpresent;
+    private javax.swing.JComboBox<String> jcbprovedor;
+    private javax.swing.JTable jtdecompr;
+    private javax.swing.JTextField txtcantidad;
+    private javax.swing.JTextField txtcostounitario;
+    private javax.swing.JTextField txtestado;
+    private javax.swing.JTextField txtfecha;
+    private javax.swing.JTextField txtguia;
+    private javax.swing.JTextField txtmedicamento;
     // End of variables declaration//GEN-END:variables
 }

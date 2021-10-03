@@ -6,7 +6,13 @@
 package all_frames;
 
 import Clases.Controlador;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 public class datVenta extends javax.swing.JFrame {
@@ -17,32 +23,37 @@ public class datVenta extends javax.swing.JFrame {
 
     public datVenta() {
         initComponents();
-        mdl.setColumnIdentifiers(new String[]{"id", "Medicamento", "Cantidad", "Costo unitario", "Vendedor", "Cliente"});
+        mdl.setColumnIdentifiers(new String[]{"id", "Medicamento", "Cantidad", "Costo unitario", "Vendedor", "Cliente","fecha","Hora"});
         jtadetven.setModel(mdl);
-        contr.LlenarJTabla(mdl, "select iddetallVenta, NOMBRE, cantVen, precioUm, nom_user,concat_ws(' ', nom, ape) Cliente\n"
+        contr.LlenarJTabla(mdl, "select iddetallVenta, nomMed, cantVen, precioUm, nom_user,concat_ws(' ', nom, ape) Cliente,fech_venta,hora_venta\n"
                 + "from detallventa dv inner join venta v on v.idventa=dv.idventa\n"
                 + "inner join empleado e on e.idempleado=dv.idempleado inner join\n"
                 + "cliente c on c.idcliente=dv.idcliente inner join identificaciong i on\n"
                 + "i.identificacion=c.identificacion inner join medicamentoxventa mv on v.idventa=mv.idventa\n"
-                + "inner join medicamento m on m.idmedicamento=mv.idmedicamento ", 6);
-        contr.LlenarCombo(jcbmedi, "select  NOMBRE\n"
-                + "from medicamento m ", 1);
+                + "inner join medicamento m on m.idmedicamento=mv.idmedicamento inner join compra co on co.idcompra=m.idcompra ", 8);
+        contr.LlenarCombo(jcbmedi, "select nomMed\n"
+                + "from compra ", 1);
         contr.LlenarCombo(jcbcliente, "select concat_ws(' ', nom, ape) Cliente\n"
                 + "from cliente c inner join identificaciong i on i.identificacion=c.identificacion; ", 1);
         contr.LlenarCombo(jcbvendedor, "select  nom_user\n"
                 + "from empleado e inner join tipempleado t on t.idtipEmpleado=e.idtipEmpleado\n"
                 + "where e.idtipEmpleado='2'; ", 1);
+        txtfexha.setText(fechaactual());
+        // Hora del sistema
+        Timer tiempo=new Timer(100, new datVenta.horas());
+        tiempo.start();
     }
 
     public void crear() {
+        
         if (jcbmedi.getSelectedIndex() < 0 || txtcantida.getText().trim().length() == 0 || txtcosto.getText().trim().length() == 0 || jcbvendedor.getSelectedIndex() < 0
                 || jcbcliente.getSelectedIndex() < 0) {
             JOptionPane.showMessageDialog(null, "campos vacios , por favor complete todos los datos");
         } else {
             // como obtener el mensaje.
             JOptionPane.showMessageDialog(null, contr.DevolverRegistroDto("call crud_detventa(1, '" + jcbmedi.getSelectedItem().toString() + "', '"
-                    + txtcantida.getText() + "', '" + jcbcliente.getSelectedItem().toString() + "', '" + txtcosto.getText() + "', '"
-                    + "', '" + jcbvendedor.getSelectedItem().toString() + "', '" + "', 1);", 1));
+                    + txtcantida.getText() + "', '" + jcbcliente.getSelectedItem().toString() + "', '" + txtcosto.getText() + "', '" +
+                    txtfexha.getText()+ "', '" + txthora.getText() + "', '" + jcbvendedor.getSelectedItem().toString() + "', '" + "', 1);", 1));
         }
     }
 
@@ -110,6 +121,23 @@ public class datVenta extends javax.swing.JFrame {
         jcbmedi.setSelectedItem(jtadetven.getModel().getValueAt(jtadetven.getSelectedRow(), 1));
         jcbcliente.setSelectedItem(jtadetven.getModel().getValueAt(jtadetven.getSelectedRow(), 5));
         jcbvendedor.setSelectedItem(jtadetven.getModel().getValueAt(jtadetven.getSelectedRow(), 4));
+        txtfexha.setText(jtadetven.getModel().getValueAt(jtadetven.getSelectedRow(), 6).toString());
+        txthora.setText(jtadetven.getModel().getValueAt(jtadetven.getSelectedRow(), 7).toString());
+    }
+    public static String fechaactual(){
+        Date fecha= new Date();
+        SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
+        return formatoFecha.format(fecha);
+    }
+    
+    class horas implements ActionListener{
+    public void actionPerformed(ActionEvent e){
+        Date sistHora= new Date();
+        String pmAm="hh:mm:ss";
+        SimpleDateFormat format = new SimpleDateFormat(pmAm);
+        Calendar hoy=Calendar.getInstance();
+        txthora.setText(String.format(format.format(sistHora), hoy));
+    }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,6 +167,8 @@ public class datVenta extends javax.swing.JFrame {
         txtcosto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        txtfexha = new javax.swing.JTextField();
+        txthora = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -247,6 +277,10 @@ public class datVenta extends javax.swing.JFrame {
 
         jLabel8.setText("HORA DE VENTA:");
 
+        txtfexha.setEnabled(false);
+
+        txthora.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -263,13 +297,17 @@ public class datVenta extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtcantida)
                             .addComponent(txtcosto)
-                            .addComponent(jcbmedi, 0, 296, Short.MAX_VALUE)))
+                            .addComponent(jcbmedi, 0, 296, Short.MAX_VALUE))
+                        .addGap(18, 18, 18))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtfexha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
-                        .addGap(91, 91, 91)))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txthora, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -302,7 +340,9 @@ public class datVenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))))
+                            .addComponent(jLabel8)
+                            .addComponent(txtfexha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txthora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -467,5 +507,7 @@ public class datVenta extends javax.swing.JFrame {
     private javax.swing.JTable jtadetven;
     private javax.swing.JTextField txtcantida;
     private javax.swing.JTextField txtcosto;
+    private javax.swing.JTextField txtfexha;
+    private javax.swing.JTextField txthora;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package all_frames;
 
 import Clases.Controlador;
+import Clases.validar;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,17 +16,19 @@ public class Medicamento extends javax.swing.JFrame {
     Controlador contr = new Controlador();
     DefaultTableModel md2 = new DefaultTableModel();
     String idMedicamento="";
+    validar cls = new validar();
     public Medicamento() {
         initComponents();
         md2.setColumnIdentifiers(new String[]{"id","Nombre","Precio", "Descripción", "Stock", "Categoria"});
 //        buscar();
         JTMEDIC.setModel(md2);
-        contr.LlenarJTabla(md2, "select idmedicamento,nombre, precioUm, descripcion, stock, nomCategoria\n"
+        contr.LlenarJTabla(md2, "select idmedicamento,nomMed, precioUm, descripcion, stock, nomCategoria\n"
                 + "from medicamento m inner join categoria c on c.idcategoria=m.idcategoria\n"
+                + "inner join compra co on co.idcompra=m.idcompra\n"
                 + "order by m.idmedicamento;", 6);
         contr.LlenarCombo(jcbcat, "select nomCategoria\n"
                 + "from medicamento m inner join categoria c on c.idcategoria=m.idcategoria", 1);
-        
+        cls.soloNumber(txtstock);
     }
     public void crear(){
      if(txtnombre.getText().trim().length()==0 || txtdesc.getText().trim().length()==0 || txtprecio.getText().trim().length()==0||txtstock.getText().trim().length()==0||

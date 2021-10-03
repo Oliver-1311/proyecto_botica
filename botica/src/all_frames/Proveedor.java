@@ -6,6 +6,7 @@
 package all_frames;
 
 import Clases.Controlador;
+import Clases.validar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,12 +14,15 @@ public class Proveedor extends javax.swing.JFrame {
     Controlador contr = new Controlador();
     DefaultTableModel md2 = new DefaultTableModel();
     String idProveedor="";
+    validar cls = new validar();
 public Proveedor() {
         initComponents();
         md2.setColumnIdentifiers(new String[]{"id", "Proveedor", "Representante", "Género", "Dirección", "Tipo documento", "NÚMERO", "Registro Sanitario"});
         buscar();
         jtbprove.setModel(md2);
         actualizarTabla();
+        cls.soloNumber(txtnumero);
+        
     }
 public void crear(){
      if(txtrs.getText().trim().length()==0 || txtProve.getText().trim().length()==0 || txtnumero.getText().trim().length()==0||txtdirec.getText().trim().length()==0||
@@ -217,11 +221,11 @@ public void llenar(){
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         jcbtipdoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "RUC", "CARNET DE EXTRANJERIA" }));
-        jPanel1.add(jcbtipdoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 100, -1));
+        jPanel1.add(jcbtipdoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 100, -1));
 
         jLabel6.setText("NÚMERO:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
-        jPanel1.add(txtnumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 110, -1));
+        jPanel1.add(txtnumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 110, -1));
 
         jLabel7.setText("DIRECCIÓN:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
